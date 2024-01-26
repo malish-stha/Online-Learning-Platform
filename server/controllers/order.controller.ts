@@ -9,6 +9,7 @@ import ejs from "ejs";
 import sendMail from "../utils/sendMail";
 import NotificationModel from "../models/notificationModel";
 import { newOrder } from "../services/order.service";
+import { send } from "process";
 
 //create Order
 export const createOrder = CatchAsyncError(
@@ -53,8 +54,39 @@ export const createOrder = CatchAsyncError(
           }),
         },
       };
+      const html = await ejs.renderFile(
+        path.join(__dirname, "../mails/order-confirmation.ejs"),
+        { order: mailData }
+      );
+      try {
+        if (user) {
+          await sendMail({
+            email: user.email,
+            subject: "Order Confirmation",
+            template: "order-confirmation.ejs",
+            data: mailData,
+          });
+        }
+      } catch (error: any) {
+        return next(new ErrorHandler(error.message, 500));
+      }
+
+      user?.courses.push(course?._id);
+
+      await user?.save();
+
+      const notification = await NotificationModel.create({
+        user: user?._id,
+        title: "New Order",
+        message: `You have a new order from ${course?.name}`,
+      });
+
+      res.status(201).json({
+        success: true,
+        order: course,
+      });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
