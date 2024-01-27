@@ -46,4 +46,11 @@ courseRouter.put(
   addReplyToReview
 );
 
+courseRouter.put(
+  "/get-courses",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  getAllCourses
+);
+
 export default courseRouter;
