@@ -2,6 +2,7 @@
 import React, { FC, useState } from "react";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
+import Hero from "./components/Route/Hero";
 
 interface Props {}
 
@@ -16,6 +17,7 @@ const Page: FC<Props> = (props) => {
         keywords="LMS, MERN, React Nextjs Express"
       />
       <Header open={open} setOpen={setOpen} activeItem={activeItem} />
+      <Hero />
     </div>
   );
 };
