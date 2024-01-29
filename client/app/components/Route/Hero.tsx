@@ -9,13 +9,22 @@ const Hero: FC<Props> = (props) => {
   return (
     <div className="w-full h-screen relative flex items-center">
       {/* Image Section */}
-      <div className="hidden md:block md:w-[50%] md:max-w-[700px]  overflow-none hero_animation">
+      <div className="hidden md:block md:w-[50%] md:max-w-[700px] overflow-none hero_animation relative">
+        <div className="rounded-full bg-[#39c1f3] w-200 h-200 flex items-center justify-center">
+          <Image
+            src={require("../../../public/assets/banner.png")}
+            alt=""
+            className="object-cover w-200 h-200 rounded-full overflow-hidden"
+          />
+        </div>
+      </div>
+      {/* <div className="hidden md:block md:w-[50%] md:max-w-[700px]  overflow-none hero_animation">
         <Image
           src={require("../../../public/assets/banner.png")}
           alt=""
           className="object-cover w-full h-full"
         />
-      </div>
+      </div> */}
       {/* Text and Search Section */}
       <div className="w-full md:w-[50%] px-4 md:px-8 py-16 md:py-0">
         <h2 className="dark:text-white text-[30px] md:text-[70px] font-[600] font-Josefin mb-4">
