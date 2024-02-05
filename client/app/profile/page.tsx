@@ -4,6 +4,7 @@ import Protected from "../hooks/useProtected";
 import Heading from "../utils/Heading";
 import Header from "../components/Header";
 import Profile from "../components/Profile/Profile";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
@@ -11,11 +12,12 @@ const page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
+  const { user } = useSelector((state: any) => state.auth);
   return (
     <div>
       <Protected>
         <Heading
-          title="Online Learning Platform"
+          title={`${user?.name} profile`}
           description="It is a platform for students to learn and get help from instructors."
           keywords="Programming, MERN, Redux"
         />
