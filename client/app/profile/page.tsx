@@ -3,6 +3,7 @@ import React, { FC, useState } from "react";
 import Protected from "../hooks/useProtected";
 import Heading from "../utils/Heading";
 import Header from "../components/Header";
+import Profile from "../components/Profile/Profile";
 
 type Props = {};
 
@@ -25,6 +26,7 @@ const page: FC<Props> = (props) => {
           setRoute={setRoute}
           route={route}
         />
+        <Profile />
       </Protected>
     </div>
   );
