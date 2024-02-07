@@ -6,15 +6,15 @@ type Props = {};
 const Profile: FC<Props> = (props: Props) => {
   const [scroll, setScroll] = useState(false);
 
-  // if (typeof window !== "undefined") {
-  //   window.addEventListener("scroll", () => {
-  //     if (window.scrollY > 85) {
-  //       setScroll(true);
-  //     } else {
-  //       setScroll(false);
-  //     }
-  //   });
-  // }
+  if (typeof window !== "undefined") {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 85) {
+        setScroll(true);
+      } else {
+        setScroll(false);
+      }
+    });
+  }
   return (
     <div className="w-[85%] flex mx-auto">
       <div
