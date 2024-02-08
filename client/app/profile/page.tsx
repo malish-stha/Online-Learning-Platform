@@ -28,7 +28,7 @@ const page: FC<Props> = (props) => {
           setRoute={setRoute}
           route={route}
         />
-        <Profile />
+        <Profile user={user} />
       </Protected>
     </div>
   );
