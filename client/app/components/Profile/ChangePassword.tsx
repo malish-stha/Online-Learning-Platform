@@ -12,6 +12,7 @@ const ChangePassword: FC<Props> = (props) => {
   const [updatePassword, { isSuccess, error }] = useUpdatePasswordMutation();
 
   const passwordChangeHandler = async (e: any) => {
+    e.preventDefault();
     if (newPassword !== confirmPassword) {
       toast.error("Password does not match");
     } else {
