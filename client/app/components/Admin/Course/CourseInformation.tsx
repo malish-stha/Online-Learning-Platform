@@ -31,6 +31,33 @@ const CourseInformation: FC<Props> = ({
           setCourseInfo({ ...courseInfo, thumbnail: reader.result });
         }
       };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDragOver = (e: any) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (e: any) => {
+    e.preventDefault();
+    setDragging(false);
+  };
+
+  const handleDrop = (e: any) => {
+    e.preventDefault();
+    setDragging(false);
+
+    const file = e.dataTransfer.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        setCourseInfo({ ...courseInfo, thumbnail: reader.result });
+      };
+      reader.readAsDataURL(file);
     }
   };
   return (
@@ -161,6 +188,27 @@ const CourseInformation: FC<Props> = ({
             className="hidden"
             onChange={handleFileChange}
           />
+          <label
+            htmlFor="file"
+            className={`w-full min-h-[10vh] cursor-pointer dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${
+              dragging ? "bg-blue-500" : "bg-transparent"
+            }`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            {courseInfo.thumbnail ? (
+              <img
+                src={courseInfo.thumbnail}
+                alt=""
+                className="max-h-full w-full object-cover"
+              />
+            ) : (
+              <span className="text-black dark:text-white">
+                Drag and drop your thumbnail here or click to browse
+              </span>
+            )}
+          </label>
         </div>
       </div>
     </div>
