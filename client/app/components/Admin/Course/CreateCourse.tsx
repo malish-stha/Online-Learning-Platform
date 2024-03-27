@@ -57,6 +57,17 @@ function CreateCourse({}: Props) {
             setActive={setActive}
           />
         )}
+
+        {active === 2 && (
+          <CourseData
+            benefits={benefits}
+            setBenefits={setBenefits}
+            prerequisites={prerequisites}
+            setPrerequisites={setPrerequisites}
+            active={active}
+            setActive={setActive}
+          />
+        )}
       </div>
       <div className="w-[20%] mt-[100px] h-screen fixed z-[-1] top-18 right-0">
         <CourseOptions active={active} setActive={setActive} />
