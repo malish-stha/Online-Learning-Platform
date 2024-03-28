@@ -35,6 +35,12 @@ const CourseContent: FC<Props> = ({
     setIsCollapsed(updatedCollapsed);
   };
 
+  const handleRemoveLink = (index: number, linkIndex: number) => {
+    const updatedData = [...courseContentData];
+    updatedData[index].links.splice(linkIndex, 1);
+    setCourseContentData(updatedData);
+  };
+
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
       <form onSubmit={handleSubmit}>
@@ -145,6 +151,46 @@ const CourseContent: FC<Props> = ({
                         }}
                       />
                     </div>
+
+                    <div className="my-3">
+                      <label className={styles.label}>Video Description</label>
+                      <textarea
+                        rows={8}
+                        cols={30}
+                        placeholder="Some Descriptions...."
+                        className={`${styles.input} !h-min py-2`}
+                        value={item.description}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].description = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                      <br />
+                      <br />
+                      <br />
+                    </div>
+                    {item?.links.map((link: any, linkIndex: number) => (
+                      <div className="mb-3 block">
+                        <div className="w-full flex items-center justify-center">
+                          <label className={styles.label}>
+                            Link {linkIndex + 1}
+                          </label>
+                          <AiOutlineDelete
+                            className={`${
+                              linkIndex === 0
+                                ? "cursor-no-drop"
+                                : "cursor-pointer"
+                            } text-black dark:text-white text-[20px]`}
+                            onClick={() =>
+                              linkIndex === 0
+                                ? null
+                                : handleRemoveLink(index, linkIndex)
+                            }
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </>
                 )}
               </div>
