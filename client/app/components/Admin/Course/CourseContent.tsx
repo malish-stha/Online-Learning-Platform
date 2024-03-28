@@ -1,6 +1,7 @@
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { BsPencil } from "react-icons/bs";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 type Props = {
@@ -51,23 +52,28 @@ const CourseContent: FC<Props> = ({
               >
                 {showSectionInput && (
                   <>
-                    <input
-                      type="text"
-                      className={`text-[20px] ${
-                        item.videoSection === "Untitled Selection"
-                          ? "w-[170px]"
-                          : "w-max"
-                      } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
-                      value={item.videoSection}
-                      onChange={(e) => {
-                        const updatedData = [...courseContentData];
-                        updatedData[index].videoSection = e.target.value;
-                        setCourseContentData(updatedData);
-                      }}
-                    />
+                    <div className="flex w-full items-center">
+                      <input
+                        type="text"
+                        className={`text-[20px] ${
+                          item.videoSection === "Untitled Selection"
+                            ? "w-[170px]"
+                            : "w-min"
+                        } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
+                        value={item.videoSection}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].videoSection = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />{" "}
+                      {""}
+                      <BsPencil className="cursor-pointer dark:text-white text-black" />
+                    </div>
+                    <br />
                   </>
                 )}
-                <div className="flex 2-full items-center justify-between my-0">
+                <div className="flex -full items-center justify-between my-0">
                   {isCollapsed[index] ? (
                     <>
                       {item.title ? (
@@ -85,7 +91,7 @@ const CourseContent: FC<Props> = ({
                   <div className="flex items-center">
                     <AiOutlineDelete
                       className={`dark:text-white text-[20px] mr-2 text-black ${
-                        index > 0 ? "curosr-pointer" : "cursor-no-drop"
+                        index > 0 ? "cursor-pointer" : "cursor-no-drop"
                       }`}
                       onClick={() => {
                         if (index > 0) {
@@ -112,6 +118,32 @@ const CourseContent: FC<Props> = ({
                   <>
                     <div className="my-3">
                       <label className={styles.label}>Video Title</label>
+                      <input
+                        type="text"
+                        placeholder="Project Plan..."
+                        className={`${styles.input}`}
+                        value={item.title}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].title = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+
+                    <div className="my-3">
+                      <label className={styles.label}>Video Url</label>
+                      <input
+                        type="text"
+                        placeholder="Place the video URL"
+                        className={`${styles.input}`}
+                        value={item.videoUrl}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].videoUrl = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
                     </div>
                   </>
                 )}
