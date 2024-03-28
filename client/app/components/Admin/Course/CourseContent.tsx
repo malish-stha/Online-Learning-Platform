@@ -1,6 +1,7 @@
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
 import { BsLink45Deg, BsPencil } from "react-icons/bs";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
@@ -45,6 +46,38 @@ const CourseContent: FC<Props> = ({
     const updatedData = [...courseContentData];
     updatedData[index].links.push({ title: "", url: "" });
     setCourseContentData(updatedData);
+  };
+
+  const newContetnHandler = (item: any) => {
+    if (
+      item.title === "" ||
+      item.description === "" ||
+      item.videoUrl === "" ||
+      item.links[0].title === "" ||
+      item.links[0].url === ""
+    ) {
+      toast.error("Please fill aa the fields first!!");
+    } else {
+      let newVideoSection = "";
+
+      if (courseContentData.length > 0) {
+        const lastVideoSection =
+          courseContentData[courseContentData.length - 1].videoSection;
+
+        if (lastVideoSection) {
+          newVideoSection = lastVideoSection;
+        }
+      }
+      const newContent = {
+        videoUrl: "",
+        title: "",
+        description: "",
+        videoSection: newVideoSection,
+        links: [{ title: "", url: "" }],
+      };
+
+      setCourseContentData([...courseContentData, newContent]);
+    }
   };
 
   return (
@@ -120,7 +153,7 @@ const CourseContent: FC<Props> = ({
                       style={{
                         transform: isCollapsed[index]
                           ? "rotate(180deg)"
-                          : "rotate(0deg",
+                          : "rotate(0deg)",
                       }}
                       onClick={() => handleCollapseToggle(index)}
                     />
@@ -229,6 +262,17 @@ const CourseContent: FC<Props> = ({
                       </p>
                     </div>
                   </>
+                )}
+                <br />
+                {index === courseContentData.length - 1 && (
+                  <div>
+                    <p
+                      className="flex items-center text-[18px] dark:text-white text-black cursor-pointer"
+                      onClick={(e: any) => newContetnHandler(item)}
+                    >
+                      <AiOutlinePlusCircle className="mr-2" /> Add New Content
+                    </p>
+                  </div>
                 )}
               </div>
             </>
