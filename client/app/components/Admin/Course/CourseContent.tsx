@@ -342,6 +342,9 @@ const CourseContent: FC<Props> = ({
           Next
         </div>
       </div>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

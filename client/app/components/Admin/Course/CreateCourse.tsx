@@ -4,11 +4,12 @@ import CourseInformation from "./CourseInformation";
 import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
+import { log } from "console";
 
 type Props = {};
 
 function CreateCourse({}: Props) {
-  const [active, setActive] = useState(2);
+  const [active, setActive] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -37,7 +38,51 @@ function CreateCourse({}: Props) {
     },
   ]);
 
-  const handleSubmit = async () => {};
+  const [courseData, setCourseData] = useState({});
+
+  const handleSubmit = async () => {
+    //Format benefits array
+    const formattedBenefits = benefits.map((benefit) => {
+      title: benefit.title;
+    });
+    //Format prerequisites array
+    const formattedPrerequisites = prerequisites.map((prerequisite) => ({
+      title: prerequisite.title,
+    }));
+
+    //Format course content array
+    const formattedCourseContent = courseContentData.map((courseContent) => {
+      videoUrl: courseContent.videoUrl;
+      title: courseContent.title;
+      description: courseContent.description;
+      videoSection: courseContent.videoSection;
+      links: courseContent.links.map((link) => ({
+        title: link.title,
+        url: link.url,
+      }));
+      suggestion: courseContent.suggestion;
+    });
+
+    const data = {
+      name: courseInfo.name,
+      description: courseInfo.description,
+      price: courseInfo.price,
+      estimatedPrice: courseInfo.estimatedPrice,
+      tags: courseInfo.tags,
+      thumbnail: courseInfo.thumbnail,
+      level: courseInfo.level,
+      demoUrl: courseInfo.demoUrl,
+      totalVideos: courseContentData.length,
+      benefits: formattedBenefits,
+      prerequisites: formattedPrerequisites,
+      courseContent: formattedCourseContent,
+    };
+    setCourseData(data);
+  };
+  console.log(courseData);
+
+  //Prepare our data
+
   return (
     <div className="w-full flex min-h-screen">
       <div className="w-[80%]">

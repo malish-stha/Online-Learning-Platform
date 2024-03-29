@@ -75,7 +75,7 @@ const CourseInformation: FC<Props> = ({
           placeholder="MERN stack LMS platform with nextjs"
           className={`${styles.input}`}
         />
-
+        <br />
         <br />
         <div className="mb-5">
           <label className={`${styles.label}`}>Course Description</label>
