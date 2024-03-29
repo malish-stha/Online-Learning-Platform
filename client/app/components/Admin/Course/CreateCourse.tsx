@@ -5,6 +5,7 @@ import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import { log } from "console";
+import CoursePreview from "./CoursePreview";
 
 type Props = {};
 
@@ -62,7 +63,7 @@ function CreateCourse({}: Props) {
       }));
       suggestion: courseContent.suggestion;
     });
-
+    //Prepare our data object
     const data = {
       name: courseInfo.name,
       description: courseInfo.description,
@@ -81,7 +82,9 @@ function CreateCourse({}: Props) {
   };
   console.log(courseData);
 
-  //Prepare our data
+  const handleCourseCreate = async (e: any) => {
+    const data = courseData;
+  };
 
   return (
     <div className="w-full flex min-h-screen">
@@ -113,6 +116,15 @@ function CreateCourse({}: Props) {
             courseContentData={courseContentData}
             setCourseContentData={setCourseContentData}
             handleSubmit={handleSubmit}
+          />
+        )}
+
+        {active === 3 && (
+          <CoursePreview
+            active={active}
+            setActive={setActive}
+            courseData={courseData}
+            handleCourseCreate={handleCourseCreate}
           />
         )}
       </div>
